@@ -1,4 +1,8 @@
 import streamlit as st
+
+# Set page configuration (only once)
+st.set_page_config(page_title="ToneClone", page_icon="🔊", layout="wide")
+
 import os
 import librosa
 import librosa.display
@@ -6,14 +10,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 from pydub import AudioSegment
+from pydub.utils import which
 from PIL import Image
 import plotly.graph_objects as go
-from pydub.utils import which
 
 
-AudioSegment.converter = which("ffmpeg")
+# Check if ffmpeg is installed
+ffmpeg_path = which("ffmpeg")
+ffprobe_path = which("ffprobe")
 
-st.set_page_config(page_title="ToneClone", page_icon="🔊", layout="wide")
+if ffmpeg_path and ffprobe_path:
+    AudioSegment.converter = ffmpeg_path
+    AudioSegment.ffprobe = ffprobe_path
+    st.success(f"✅ FFmpeg found at: {ffmpeg_path}")
+else:
+    st.error("⚠️ FFmpeg not found! Please add `ffmpeg` to `packages.txt` or install it manually.")
+
+# Debugging message for logs
+st.write(f"FFmpeg path: {ffmpeg_path}")
+st.write(f"FFprobe path: {ffprobe_path}")
 
 
 # Custom CSS

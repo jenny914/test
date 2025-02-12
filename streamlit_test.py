@@ -8,12 +8,15 @@ from pathlib import Path
 from pydub import AudioSegment
 from PIL import Image
 import plotly.graph_objects as go
+from pydub.utils import which
 
+
+AudioSegment.converter = which("ffmpeg")
 
 st.set_page_config(page_title="ToneClone", page_icon="🔊", layout="wide")
 
 
-# Custom CSS for Dark Mode
+# Custom CSS
 dark_theme = """
 <style>
     /* Full-screen background image */

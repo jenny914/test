@@ -10,3 +10,6 @@ soundfile
 audioread
 imageio[ffmpeg]
 ffmpeg-python
+Torch
+torchvision
+torchaudio
